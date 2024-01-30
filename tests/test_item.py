@@ -1,11 +1,38 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
-from src.item import Item
+import pytest
+from src.item import *
+from config import ITEMS
 
-def test_item():
-    item = Item("Смартфон", 10000, 20)
+@pytest.fixture
+def item():
+    return Item("Смартфон", 10000, 20)
+
+
+def test_calculate_total_price(item):
     assert item.calculate_total_price() == 200000
 
-    Item.pay_rate = 0.8
-    item.apply_discount()
-    assert item.price == 8000.0
 
+def test_apply_discount(item):
+    item.pay_rate = 0.8
+    item.apply_discount()
+    assert item.price == 8000
+
+
+def test_name(item):
+    item.name = "Телефон"
+    assert item.name == "Телефон"
+    item.name = "СуперСмартфон"
+    assert item.name == "СуперСмарт"
+
+
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv(ITEMS)
+    assert len(Item.all) == 5
+    item1 = Item.all[4]
+    assert item1.name == 'Клавиатура'
+
+
+def test_string_to_number():
+    assert Item.string_to_number('5') == 5
+    assert Item.string_to_number('5.0') == 5
+    assert Item.string_to_number('5.5') == 5
