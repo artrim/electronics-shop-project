@@ -19,7 +19,8 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
-        self.all.append(self)
+        Item.all.append(self)
+        # self.all.append(self)
 
     def calculate_total_price(self) -> float:
         """
@@ -60,3 +61,8 @@ class Item:
             self.__name = new_name
         #   raise Exception('Длина наименования товара превышает 10 символов.')
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return self.name
