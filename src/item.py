@@ -38,6 +38,7 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls, cvs_file):
+        cls.all.clear()
         with open(cvs_file, newline='', encoding='windows-1251') as file:
             reader = csv.DictReader(file)
             for row in reader:
