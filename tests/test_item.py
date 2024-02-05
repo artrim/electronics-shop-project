@@ -1,7 +1,6 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
 from src.item import *
-from config import ITEMS
 
 
 @pytest.fixture
@@ -27,7 +26,7 @@ def test_name(item):
 
 
 def test_instantiate_from_csv():
-    Item.instantiate_from_csv(ITEMS)
+    Item.instantiate_from_csv("../src/items.csv")
     assert len(Item.all) == 5
     item1 = Item.all[4]
     assert item1.name == 'Клавиатура'
