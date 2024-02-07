@@ -20,7 +20,7 @@ class Item:
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
-        # self.all.append(self)
+        super().__init__()
 
     def calculate_total_price(self) -> float:
         """
