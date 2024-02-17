@@ -1,6 +1,10 @@
 import csv
 
 
+class InstantiateCSVError(Exception):
+    pass
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -39,10 +43,15 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls, cvs_file):
         cls.all.clear()
-        with open(cvs_file, newline='', encoding='windows-1251') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                cls(str(row["name"]), float(row["price"]), int(row["quantity"]))
+        try:
+            with open(cvs_file, newline='', encoding='windows-1251') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    cls(str(row["name"]), float(row["price"]), int(row["quantity"]))
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл item.csv')
+        except KeyError:
+            raise InstantiateCSVError('Файл item.csv поврежден')
 
     @staticmethod
     def string_to_number(str_number):
