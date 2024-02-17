@@ -50,3 +50,13 @@ def test_str(item):
 def test_add(item):
     phone = Phone("iPhone 14", 120_000, 5, 2)
     assert item + phone == 25
+
+
+def test_instantiate_from_csv():
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(" ")
+
+
+def test_instantiate_from_csv():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv("../src/items_broken.csv")
